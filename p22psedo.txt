@@ -1,0 +1,97 @@
+
+
+(*Programa de censo*)
+(*entero cantEncuestas, cantHabitantes, cantMenores, casasConMenores, jefeConMasMenores, acumuladorPersonas, contadorEncuestas*)
+(*float promedioTotal*)
+(*string nombreCompletoJefe, validacion, propiedad, jefeConMasMenoresStr*)
+ESCRIBIR("¿Desea ingresar algún nuevo alumno? Responda si o no")
+LEER(validacion)
+(*Validar respuesta*)
+SI (validacion = "si" || validacion == "Si" || validacion == "SI") ENTONCES
+    ESCRIBIR("Ingrese cuantas encuestas desea realizar: ")
+    LEER(cantEncuestas)
+    (*Validar dato*)
+    MIENTRAS (NOT(ES-NUMERICO(cantEncuestas)) || NOT(SETEADO(cantEncuestas))) HACER
+        ESCRIBIR("Ingrese un número válido: ")
+        LEER(cantEncuestas)
+    FIN MIENTRAS
+    SI (cantEncuestas > 0) ENTONCES
+        (*Comenzar encuesta e inicializar variables*)
+        casasConMenores <-- 0
+        jefeConMasMenores <-- 0
+        jefeConMasMenoresStr <-- "Ninguno"
+        cantMenores <-- 0
+        acumuladorPersonas <-- 0
+        promedioTotal <-- 0
+        contadorEncuestas <-- 0
+        nombreCompletoJefe <-- ""
+        PARA i <-- 1 HASTA cantEncuestas PASO 1
+            (*Datos del jefe*)
+            ESCRIBIR("Ingrese nombre del jefe de hogar: ")
+            LEER(nombreCompletoJefe)
+            MIENTRAS (TIENE-NUMERO(nombreCompletoJefe)) HACER
+                ESCRIBIR("No ha ingresado un nombre válido, vuelva a ingresarlo por favor.")
+                LEER(nombreCompletoJefe)
+            FIN MIENTRAS
+
+            (*Datos de cantidad de habitantes*)
+            ESCRIBIR("Ingrese la cantidad de habitantes que residen en la vivienda: ")
+            LEER(cantHabitantes)
+            MIENTRAS (cantHabitantes = 0) HACER
+                ESCRIBIR("Ha ingresado una cantidad de habitantes nula, por favor ingrese un valor mayor o igual a 1.")
+                ESCRIBIR("Recuerde que para que viva un menor en la casa mínimamente un adulto en la misma.")
+                LEER(cantHabitantes)
+            FIN MIENTRAS
+
+            (*Datos de niños menores*)
+            ESCRIBIR("Ingrese la cantidad de niños menores de la vivienda: ")
+            LEER(cantMenores)
+            MIENTRAS (cantMenores >= cantHabitantes OR cantMenores < 0)
+                ESCRIBIR("Ha ingresado una cantidad de menores no válida, recuerde que la cantidad de menores debe ser inferior a la cantidad de habitantes o debe ser mayor o igual a 0.")
+                ESCRIBIR("Vuelva a ingresar el valor de la cantidad de menores para corregirlo: ")
+                LEER(cantMenores)
+            FIN MIENTRAS
+
+            (*Datos de la propiedad*)
+            ESCRIBIR("¿El jefe de hogar es propietario de la vivienda? En caso de ser correcto ingrese S o s")
+            LEER(propiedad)
+
+            (*Datos de cantidad de viviendas con menores*)
+            SI(cantMenores > 0)ENTONCES
+                casasConMenores <-- casasConMenores + 1
+            FIN SI
+
+            (*Jefe de hogar con mas menores a cargo*)
+            SI (jefeConMasMenores < cantMenores)ENTONCES
+                jefeConMasMenoresStr <-- nombreCompletoJefe
+                jefeConMasMenores <-- cantMenores
+            FIN SI
+
+            (*Acumulador de cantidad de personas*)
+            acumuladorPersonas <-- acumuladorPersonas + cantHabitantes
+
+            contadorEncuestas <-- i
+
+        FIN PARA
+
+        (*Cantidad de encuestas realizada*)
+        ESCRIBIR("La cantidad de encuestas realizadas fue: ", contadorEncuestas)
+
+        (*Cantidad de viviendas con menores*)
+        ESCRIBIR("La cantidad de viviendas con menores es: ", casasConMenores)
+
+        (*Jefe de hgoar con mayor cantidad de menores*)
+        ESCRIBIR("El jefe de hogar con mayor cantidad de menores es: ", jefeConMasMenoresStr)
+
+        (*Promedio de cantidad de habitantes por vivienda*)
+        promedioTotal <-- acumuladorPersonas / contadorEncuestas
+        ESCRIBIR("El promedio de habitantes por vivienda ha dado: ", promedioTotal)
+
+    SINO
+        ESCIRBIR("No se realizará ninguna encuesta.")
+    FIN SI
+
+SINO
+    ESCRIBIR("No se ingresará ningún nuevo alumno")
+FIN SI
+
