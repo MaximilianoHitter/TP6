@@ -4,6 +4,7 @@ int $cantEncuestas, $cantHabitantes, $cantMenores, $casasConMenores, $jefeConMas
 float $promedioTotal
 string $nombreCompletoJefe, $jefeConMasMenoresStr
 */
+//break 1
 
 echo "Ingrese cuantas encuestas desea realizar: \n";
 $cantEncuestas = trim(fgets(STDIN));
