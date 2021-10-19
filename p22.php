@@ -1,4 +1,6 @@
 <?php
+//Realizado por Maximiliano Hitter, 2021
+//https://github.com/MaximilianoHitter
 /*Programa censo
 int $cantEncuestas, $cantHabitantes, $cantMenores, $casasConMenores, $jefeConMasMenores, $acumuladorPersonas, $contadorEncuestas
 float $promedioTotal
